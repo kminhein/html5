@@ -1,3 +1,12 @@
+<script>
+var canvas  = document.getElementById("mycanvas");
+if (canvas.getContext){   
+   var ctx = canvas.getContext('2d');   
+   // drawing code here   
+} else {   
+   // canvas-unsupported code here 
+}  
+</script>
 <canvas id="myCanvas" width="500" height="500">
 Your browser doesn't support HTML5 canvas tags.
 </canvas>
