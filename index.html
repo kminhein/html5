@@ -1,32 +1,39 @@
-<script src="kinetic-v5.min.js"></script>
-<div id="container"></div>
-    <script defer="defer">
-      var stage = new Kinetic.Stage({
-        container: 'container',
-        width: 578,
-        height: 200
-      });
-      var layer = new Kinetic.Layer();
+<html>
+    <head>
+        <title>HTML5 Canvas</title>
+        <script src="kinetic-v5.min.js"></script>
+    </head>
+    <body>
+        <div id="container"></div>
+        <script defer="defer">
+            var stage = new Kinetic.Stage({
+                container: 'container',
+                width: 578,
+                height: 200
+            });
+            var layer = new Kinetic.Layer();
 
-      var box = new Kinetic.Rect({
-        x: 100,
-        y: 40,
-        width: 100,
-        height: 50,
-        fill: '#00D2FF',
-        stroke: 'black',
-        strokeWidth: 4,
-        draggable: true
-      });
+            var box = new Kinetic.Rect({
+                x: 100,
+                y: 40,
+                width: 100,
+                height: 50,
+                fill: '#00D2FF',
+                stroke: 'black',
+                strokeWidth: 4,
+                draggable: true
+            });
 
-      // add cursor styling
-      box.on('mouseover', function() {
-        document.body.style.cursor = 'pointer';
-      });
-      box.on('mouseout', function() {
-        document.body.style.cursor = 'default';
-      });
+            // add cursor styling
+            box.on('mouseover', function () {
+                document.body.style.cursor = 'pointer';
+            });
+            box.on('mouseout', function () {
+                document.body.style.cursor = 'default';
+            });
 
-      layer.add(box);
-      stage.add(layer);
-    </script>
+            layer.add(box);
+            stage.add(layer);
+        </script>
+    </body>
+</html>
