@@ -20,428 +20,411 @@
                  Brad Neuberg
 --> 
 <html>  
-  <head> 
-    <meta charset="utf-8" /> 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" /> 
-    <title>HTML5 Presentation</title> 
-    <link id="prettify-link" href="css/resources.css" rel="stylesheet" disabled /> 
-    <link href="default.css" class="theme" rel="stylesheet" /> 
-  </head> 
-  <body> 
-    <div class="presentation"> 
-      <div id="presentation-counter">Loading...</div> 
-      <div class="slides"> 
- 
-                
-        <div class="slide"> 
-          <style> 
-            .intro h1, .intro h2 {
-              color: black;
-            }
-            .intro h1 {
-              letter-spacing: -2px;
-              font-size: 82px;
-            }
-            .intro h2 {
-              margin-top: -5px;
-              font-size: 40px;
-              letter-spacing: -1px;
-            }
-          </style> 
-          <section class="middle intro"> 
-            <hgroup> 
-              <h1> 
-                HTML Canvas<br />JavaScript FileReader
-              </h1> 
-              <br />
-              <h3> 
-              	<a href='http://briangrinstead.com/canvasslides'>http://briangrinstead.com/canvasslides</a>
-              </h3> 
-            </hgroup> 
-            <p>Press <span id="left-init-key" class="key">&rarr;</span></p>
-          </section> 
-        </div> 
- 
- 		<div class="slide"> 
-          <header><h1>Canvas</h1></header> 
- 			<style>
- 				#intro-canvas { margin:0 auto; text-align:center; }
- 				#intro-canvas canvas { background-color:white;}
- 			</style>
-          <section id='intro'> 
-          	<ul>
-          	<li>An HTML element for displaying bitmapped graphics</li>
-			<li>Originally created by Apple for their dashboard widgets</li>
-			<li>Proposed  <span title='Web Hypertext Applications Technology Working Group'>WHAT Working Group</span> in "Web Applications 1.0" which turned into the W3C HTML 5 Standard (<a href='http://diveintohtml5.org/past.html' target="_blank">http://diveintohtml5.org/past.html)</a></li>
-			<li>JavaScript access and API</li>
-			</ul>
-			<div id='intro-canvas'>
-			
-			<pre>&lt;canvas width='300' height='300'&gt;&lt;/canvas&gt;</pre>
-			
-			<canvas width='300' height='300'></canvas>
-			</div>
-          </section>  
-        </div> 
-        
-        
-        <div class="slide"> 
-          <header><h1>Canvas - Compatibility</h1></header>
-          <section> 
-          	<img src='http://briangrinstead.com/canvasslides/resources/canvas-compat.png' alt='HTML canvas compatibility' />
-          	<hr />
-          	<a href='http://caniuse.com/#feat=canvas' target="_blank">http://caniuse.com/#feat=canvas</a> as of 12/15/2010
-          </section>  
-        </div> 
-        
-        <div class='slide'>
-        <header><h1>Canvas - Lines, Shapes, and Text</h1></header>
-        
-        <section>
-        
-        <canvas id='joins' width='200' height='200'></canvas>
-        <canvas id='arc' width='200' height='200'></canvas>
-        <canvas id='rect' width='200' height='200'></canvas>
-        <canvas id='oval' width='200' height='200'></canvas>
-        <canvas id='canvastext' width='500' height='50'></canvas>
-        <hr />
-        <p><a href='http://www.html5canvastutorials.com/' target="_blank">http://www.html5canvastutorials.com/</a> has some good basic tutorials.</p>
-     <script type='text/javascript'>   
-		function drawJoins(canvas) {
-			var c = canvas.getContext("2d");
-		 
-			c.beginPath();
-			c.moveTo(30,25);
-			c.lineTo(70,165); // line 1
-			c.lineTo(130,25); // line 2
-			c.lineTo(170,165); // line 3
-		 
-			c.lineWidth=25;
-			c.lineJoin="round";
-			//c.lineJoin="miter";
-			c.stroke();		
-		}
-		drawJoins(document.getElementById("joins"));
-		
-		function drawArc(canvas) {
-			var c = canvas.getContext("2d");
-		 
-			var centerX = 100;
-			var centerY = 100;
-			var radius= 45;
-			var startingAngle = 0 * Math.PI;
-			var endingAngle = 1.5 * Math.PI;
-			var counterclockwise = false;
-		 
-			c.arc(centerX,centerY, radius, startingAngle, 
-				endingAngle,counterclockwise);
-			c.lineWidth=15;
-			c.strokeStyle="black"; // line color
-			c.stroke();	
-		}
-		drawArc(document.getElementById("arc"));
-		
-		function drawRect(canvas) {
-			var c = canvas.getContext("2d");
-		 
-		 
-			var grd=c.createLinearGradient(0,0,200,200);
-			grd.addColorStop(0,"#ddf");
-			grd.addColorStop(1,"#33f");
-			c.fillStyle=grd;
-			c.fillRect(25, 25, 150, 100)
-		}
-		drawRect(document.getElementById("rect"));
-		
-		function drawOval(canvas) {
-			var c = canvas.getContext("2d");
-		 
-			// define center of oval
-			var centerX = 100;
-			var centerY = 100;
-		 
-			// define size of oval
-			var height = 100;
-			var width = 180;
-		 
-			var controlRectWidth = width * 1.33;
-		 
-			c.beginPath();
-			c.moveTo(centerX,centerY - height/2);
-			// draw left side of oval
-			c.bezierCurveTo(centerX-controlRectWidth/2,centerY-height/2,
-				centerX-controlRectWidth/2,centerY+height/2,
-				centerX,centerY+height/2);
-		 
-			// draw right side of oval
-			c.bezierCurveTo(centerX+controlRectWidth/2,centerY+height/2,
-				centerX+controlRectWidth/2,centerY-height/2,
-				centerX,centerY-height/2);
-		 
-			c.lineWidth=10;
-			c.strokeStyle="black"; 
-			c.stroke();	
-			
-			// c.createRadialGradient(startX, startY, startRadius, endX, endY, endRadius)
-			var grd=c.createRadialGradient(100,100,10,100,100,80);
-			grd.addColorStop(0,"#ddf");
-			grd.addColorStop(.5,"#f33");
-			grd.addColorStop(1,"#33f");
-			c.fillStyle=grd;
-			c.fill();
-			c.closePath();
-		}
-		drawOval(document.getElementById("oval"));
-		
-		
-		function drawText(canvas) {
-			var c = canvas.getContext("2d");
-		 
-			c.font="30pt Calibri";
-			c.textAlign="left";
-			c.fillStyle="blue";
-			c.fillText("Canvas Text", 10, 30);
-		}
-		drawText(document.getElementById("canvastext"));
-
-</script>
-        </section>
-        </div>
-        
- 		<div class="slide"> 
-          <header><h1>Canvas - Images</h1></header> 
- 		<style>#possum { margin-right:20px; margin-top:50px;}</style>
-          <section> 
- 
-            <h2>You can load and manipulate images inside a canvas</h2>
-            
-            <img id='possum' src='http://briangrinstead.com/canvasslides/resources/possum.jpg' alt='Yes, we let him go free by a creek (far away from the house)' height='300' style='float:right;' />
-            <ul class='bullets'>
-            	<li><a href='photos1.html' target="_blank">Load an image</a></li>
-            	<li><a href='photos2.html' target="_blank">Draw on an image</a></li>
-            	<li><a href='photos3.html' target="_blank">Face Detection</a></li>
-            	<li><a href='photos4.html' target="_blank">Image Manipulation</a></li>
-            </ul> 
-            
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>Canvas - Games</h1></header> 
- 
-          <section> 
- 
-            <h2>Ability to interact directly with 2D bitmap context opens up the ability to make games in Canvas/JS instead of Flash or Java</h2>
-            
-            <ul class='bullets'>
-<li><a href="http://www.nihilogic.dk/labs/mariokart/">Mario Kart</a></li>
-<li><a href='http://hakim.se/experiments/html5/sinuous/01/#'>Sinuous</a></li>
-<li><a href="http://billmill.org/static/canvastutorial/finish.html" target='_blank'>Breakout Tutorial</a></li>
-            </ul> 
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>Canvas vs SVG</h1></header> 
- 			<style>#svgcanvas {width:100%; text-align:left;}#svgcanvas ul, #svgcanvas ul li { margin-left:0; padding-left:0;} #svgcanvas .bullets { margin-top:10px;}</style>
-          <section> 
-          	
-          	<table id='svgcanvas'>
-          	<tr><th><h2>SVG (Vector)</h2></th><th><h2>Canvas (Raster)</h2></th></tr>
-          	<tr>
-          	<td>
-          	<ul class='bullets'>
-  				<li>Scalable or interactive</li>
-				<li>Mouse events</li>
-				<li><a href='http://svg-edit.googlecode.com/svn/branches/2.5.1/editor/svg-editor.html'>SVG Edit</a></li>
-			</ul>
-          	
-          	</td>
-          	<td>
-			<ul class='bullets'>
-				<li>Pixel based drawing</li>
-				<li>Color picker</li>
-				<li>Performance</li>
-			</ul>
-          	</td>
-          	</tr>
-          	
-          	</table>
-          	<hr />
-          	A fully featured drawing application might need to make use of both: <a href='http://www.svgopen.org/2010/papers/62-From_SVG_to_Canvas_and_Back/index.html' target="_blank">SVG To Canvas and Back</a>
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>Canvas - Video</h1></header> 
- 
-          <section> 
-          <ul class='bullets'>
-          	<li><a href='https://developer.mozilla.org/En/Manipulating_video_using_canvas' target="_blank">Mozilla - Manipulating Video Using Canvas</a></li>
-          	<li><a href='http://www.craftymind.com/factory/html5video/CanvasVideo.html' target="_blank">Exploding Video</a></li>
-          </ul>
-          
-          
-          <div class='two-column center'>
-          <div><img src='http://briangrinstead.com/canvasslides/resources/video.png' width='300' /></div>
-          <div><img src='http://briangrinstead.com/canvasslides/resources/video-explode.png' width='300' /></div>
-          </div>
-    
-          
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>Canvas - Resources</h1></header> 
-          
-          <section> 
-          <ul class='bullets'>
-			<li>
-			<a href='http://diveintohtml5.org/canvas.html' target="_blank">Dive Into HTML5 Canvas Tutorial</a>
-			</li>
-			<li>
-			<a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#the-canvas-element' target="_blank">WHATWG Spec</a>
-			</li>
-          	<li>
-          	<a href='https://developer.mozilla.org/en/canvas_tutorial' target="_blank">Mozilla Canvas Tutorial</a>
-          	</li>
-			<li>
-			<a href='http://billmill.org/static/canvastutorial/' target="_blank">Canvas Breakout Game Tutorial</a>
-			</li>
-			
-			</ul>
-			
-			
-          </section> 
- 
-        </div> 
-        
-        
- 		<div class="slide"> 
-          <header><h1>Canvas - More Demos</h1></header> 
-          
-          <section>      
-<ul class='bullets'>
-
-<li><a href="http://www.ernestdelgado.com/public-tests/canvasphoto/demo/canvas.html" target="_blank">Photo Table</a></li>
-<li><a href="http://www.nihilogic.dk/labs/" target="_blank">Nihilogic Labs</a></li>
-<li><a href="http://www.pixastic.com/lib/" target="_blank">Pixastic Image Manipulation</a></li>
-<li><a href="http://azarask.in/projects/algorithm-ink/#d3c3be13" target="_blank">Algorithm Ink</a></li>
-<li><a href="http://pipes.yahoo.com/pipes/pipe.edit" target="_blank">Yahoo! Pipes</a></li>
-</ul>
-          </section> 
- 
-        </div> 
-        
-        
- 		<div class="slide"> 
-          <header><h1>FileReader</h1></header> 
- 
-          <section> 
- 
- 			<p>Provides methods to read files into memory, and access the data using progress events.</p>
-          	<p><a href='http://www.w3.org/TR/FileAPI/#FileReader-interface'>http://www.w3.org/TR/FileAPI/#FileReader-interface</a></p>
-          <table class="standard-table"> <tbody> <tr> 
-          
-          <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#abort()">abort</a>();</code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsArrayBuffer()">readAsArrayBuffer</a>(in Blob blob);</code> 
-<span class="unimplementedInlineTemplate" style="border: 1px solid rgb(255, 205, 154); background-color: rgb(255, 153, 204); font-size: x-small; white-space: nowrap; padding: 2px;">Unimplemented</span>
-</td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsBinaryString()">readAsBinaryString</a>(</code><code>in Blob blob</code><code>);<br> </code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsDataURL()">readAsDataURL</a>(</code><code>in Blob blob</code><code>);<br> </code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsText()">readAsText</a>(</code><code>in Blob blob</code><code>, [optional] in DOMString encoding</code><code>);<br> </code></td> </tr> 
-
-</tbody>
-</table>
+    <head> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" /> 
+        <title>HTML5 Presentation</title> 
+        <link id="prettify-link" href="css/resources.css" rel="stylesheet" disabled /> 
+        <link href="default.css" class="theme" rel="stylesheet" /> 
+    </head> 
+    <body> 
+        <div class="presentation"> 
+            <div id="presentation-counter">Loading...</div> 
+            <div class="slides"> 
 
 
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>FileReader - Compatibility</h1></header> 
- 
-          <section> 
-          <img src='http://briangrinstead.com/canvasslides/resources/file-compat.png' />
-          <hr />
-          <a href='http://caniuse.com/#feat=fileapi' target='_blank'>http://caniuse.com/#feat=fileapi</a> as of 12/15/2010
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>FileReader - Usage</h1></header> 
- 
-          <section> 
-          <ul class='bullets'>
-          <li><a href='filereader1.html' target='_blank'>Basic Usage</a></li>
-          <li><a href='filereader2.html' target='_blank'>Drag and Drop</a></li>
-          <li><a href='filereader3.html' target='_blank'>filereader.js</a></li>
-          </ul>
-          </section> 
- 
-        </div> 
-        
-        
-        
- 		<div class="slide"> 
-          <header><h1>FileReader - Resources</h1></header> 
-          
-          <section> 
-          	<ul class='bullets'>
-          	<li><a href='http://www.w3.org/TR/FileAPI/#FileReader-interface' target="_blank">FileAPI FileReader Interface</a> (W3C)</li>
-			<li>
-			<a href='https://github.com/bgrins/filereader.js' target="_blank">https://github.com/bgrins/filereader.js</a>
-			</li>
-			<li>
-			<a href='https://developer.mozilla.org/en/DOM/FileReader' target="_blank">Mozilla FileReader docs</a>
-			</li>
-			</ul>
-          </section> 
- 
-        </div> 
-        
- 		<div class="slide"> 
-          <header><h1>FileReader + Canvas</h1></header> 
-          
-          <section> 
-          	<p>Combine both technologies to allow direct image access + manipulation</p>
-          	<ul class='bullets'>
-          	<li><a href='filereadercanvas.html' target='_blank'>Putting it together</a> for local image reading + manipulation.</li>
-          </section> 
- 
-        </div> 
-        
-        
- 		<div class="slide"> 
-          <header><h1>Instant Sprite</h1></header> 
-          
-          <section> 
-          	<p>CSS Sprite Generator using Canvas/FileReader <span class='sumary'>(entirely in browser)</span></p>
-          	<ul class='bullets'>
-          	<li><a href='http://instantsprite.com' target='_blank'>http://instantsprite.com</a></li>
-          	<li><a href='https://github.com/bgrins/InstantSprite' target='_blank'>https://github.com/bgrins/InstantSprite</a></li>
-          	</ul>
-          </section> 
- 
-        </div> 
-        
-        
-        
- 
- 
-      </div> <!-- slides --> 
- 
-    </div> <!-- presentation --> 
- 
-    <script src="prettify.js" onload="prettyPrint();"></script> 
-    <script src='slides.js' type='text/javascript'></script> 
-    <!--[if lt IE 9]>
-    <script 
-      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
-    </script>
-    <script>CFInstall.check({ mode: "overlay" });</script>
-    <![endif]--> 
-  </body> 
+                <div class="slide"> 
+                    <style> 
+                        .intro h1, .intro h2 {
+                            color: black;
+                        }
+                        .intro h1 {
+                            letter-spacing: -2px;
+                            font-size: 82px;
+                        }
+                        .intro h2 {
+                            margin-top: -5px;
+                            font-size: 40px;
+                            letter-spacing: -1px;
+                        }
+                    </style> 
+                    <section class="middle intro"> 
+                        <hgroup> 
+                            <h1> 
+                                HTML Canvas<br />JavaScript FileReader
+                            </h1> 
+                            <br />
+                            <h3> 
+                                <a href='http://briangrinstead.com/canvasslides'>http://briangrinstead.com/canvasslides</a>
+                            </h3> 
+                        </hgroup> 
+                        <p>Press <span id="left-init-key" class="key">&rarr;</span></p>
+                    </section> 
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>Canvas</h1></header> 
+                    <style>
+                        #intro-canvas { margin:0 auto; text-align:center; }
+                        #intro-canvas canvas { background-color:white;}
+                    </style>
+                    <section id='intro'> 
+                        <ul>
+                            <li>An HTML element for displaying bitmapped graphics</li>
+                            <li>Originally created by Apple for their dashboard widgets</li>
+                            <li>Proposed  <span title='Web Hypertext Applications Technology Working Group'>WHAT Working Group</span> in "Web Applications 1.0" which turned into the W3C HTML 5 Standard (<a href='http://diveintohtml5.org/past.html' target="_blank">http://diveintohtml5.org/past.html)</a></li>
+                            <li>JavaScript access and API</li>
+                        </ul>
+                        <div id='intro-canvas'>
+
+                            <pre>&lt;canvas width='300' height='300'&gt;&lt;/canvas&gt;</pre>
+
+                            <canvas width='300' height='300'></canvas>
+                        </div>
+                    </section>  
+                </div> 
+
+
+                <div class="slide"> 
+                    <header><h1>Canvas - Compatibility</h1></header>
+                    <section> 
+                        <img src='canvas-compatibility.png' alt='HTML canvas compatibility' />
+                        <hr />
+                        <a href='http://caniuse.com/#feat=canvas' target="_blank">http://caniuse.com/#feat=canvas</a> as of 12/15/2010
+                    </section>  
+                </div> 
+
+                <div class='slide'>
+                    <header><h1>Canvas - Lines, Shapes, and Text</h1></header>
+
+                    <section>
+
+                        <canvas id='joins' width='200' height='200'></canvas>
+                        <canvas id='arc' width='200' height='200'></canvas>
+                        <canvas id='rect' width='200' height='200'></canvas>
+                        <canvas id='oval' width='200' height='200'></canvas>
+                        <canvas id='canvastext' width='500' height='50'></canvas>
+                        <hr />
+                        <p><a href='http://www.html5canvastutorials.com/' target="_blank">http://www.html5canvastutorials.com/</a> has some good basic tutorials.</p>
+                        <script type='text/javascript'>
+                            function drawJoins(canvas) {
+                                var c = canvas.getContext("2d");
+
+                                c.beginPath();
+                                c.moveTo(30, 25);
+                                c.lineTo(70, 165); // line 1
+                                c.lineTo(130, 25); // line 2
+                                c.lineTo(170, 165); // line 3
+
+                                c.lineWidth = 25;
+                                c.lineJoin = "round";
+                                //c.lineJoin="miter";
+                                c.stroke();
+                            }
+                            drawJoins(document.getElementById("joins"));
+
+                            function drawArc(canvas) {
+                                var c = canvas.getContext("2d");
+
+                                var centerX = 100;
+                                var centerY = 100;
+                                var radius = 45;
+                                var startingAngle = 0 * Math.PI;
+                                var endingAngle = 1.5 * Math.PI;
+                                var counterclockwise = false;
+
+                                c.arc(centerX, centerY, radius, startingAngle,
+                                        endingAngle, counterclockwise);
+                                c.lineWidth = 15;
+                                c.strokeStyle = "black"; // line color
+                                c.stroke();
+                            }
+                            drawArc(document.getElementById("arc"));
+
+                            function drawRect(canvas) {
+                                var c = canvas.getContext("2d");
+
+
+                                var grd = c.createLinearGradient(0, 0, 200, 200);
+                                grd.addColorStop(0, "#ddf");
+                                grd.addColorStop(1, "#33f");
+                                c.fillStyle = grd;
+                                c.fillRect(25, 25, 150, 100)
+                            }
+                            drawRect(document.getElementById("rect"));
+
+                            function drawOval(canvas) {
+                                var c = canvas.getContext("2d");
+
+                                // define center of oval
+                                var centerX = 100;
+                                var centerY = 100;
+
+                                // define size of oval
+                                var height = 100;
+                                var width = 180;
+
+                                var controlRectWidth = width * 1.33;
+
+                                c.beginPath();
+                                c.moveTo(centerX, centerY - height / 2);
+                                // draw left side of oval
+                                c.bezierCurveTo(centerX - controlRectWidth / 2, centerY - height / 2,
+                                        centerX - controlRectWidth / 2, centerY + height / 2,
+                                        centerX, centerY + height / 2);
+
+                                // draw right side of oval
+                                c.bezierCurveTo(centerX + controlRectWidth / 2, centerY + height / 2,
+                                        centerX + controlRectWidth / 2, centerY - height / 2,
+                                        centerX, centerY - height / 2);
+
+                                c.lineWidth = 10;
+                                c.strokeStyle = "black";
+                                c.stroke();
+
+                                // c.createRadialGradient(startX, startY, startRadius, endX, endY, endRadius)
+                                var grd = c.createRadialGradient(100, 100, 10, 100, 100, 80);
+                                grd.addColorStop(0, "#ddf");
+                                grd.addColorStop(.5, "#f33");
+                                grd.addColorStop(1, "#33f");
+                                c.fillStyle = grd;
+                                c.fill();
+                                c.closePath();
+                            }
+                            drawOval(document.getElementById("oval"));
+
+
+                            function drawText(canvas) {
+                                var c = canvas.getContext("2d");
+
+                                c.font = "30pt Calibri";
+                                c.textAlign = "left";
+                                c.fillStyle = "blue";
+                                c.fillText("Canvas Text", 10, 30);
+                            }
+                            drawText(document.getElementById("canvastext"));
+
+                        </script>
+                    </section>
+                </div>
+
+                <div class="slide"> 
+                    <header><h1>Canvas - Images</h1></header> 
+                    <style>#possum { margin-right:20px; margin-top:50px;}</style>
+                    <section> 
+
+                        <h2>You can load and manipulate images inside a canvas</h2>
+
+                        <img id='possum' src='http://briangrinstead.com/canvasslides/resources/possum.jpg' alt='Yes, we let him go free by a creek (far away from the house)' height='300' style='float:right;' />
+                        <ul class='bullets'>
+                            <li><a href='photos1.html' target="_blank">Load an image</a></li>
+                            <li><a href='photos2.html' target="_blank">Draw on an image</a></li>
+                            <li><a href='photos3.html' target="_blank">Face Detection</a></li>
+                            <li><a href='photos4.html' target="_blank">Image Manipulation</a></li>
+                        </ul> 
+
+                    </section> 
+
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>Canvas - Games</h1></header> 
+
+                    <section> 
+
+                        <h2>Ability to interact directly with 2D bitmap context opens up the ability to make games in Canvas/JS instead of Flash or Java</h2>
+
+                        <ul class='bullets'>
+                            <li><a href="http://www.nihilogic.dk/labs/mariokart/">Mario Kart</a></li>
+                            <li><a href='http://hakim.se/experiments/html5/sinuous/01/#'>Sinuous</a></li>
+                            <li><a href="http://billmill.org/static/canvastutorial/finish.html" target='_blank'>Breakout Tutorial</a></li>
+                        </ul> 
+                    </section> 
+
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>Canvas vs SVG</h1></header> 
+                    <style>#svgcanvas {width:100%; text-align:left;}#svgcanvas ul, #svgcanvas ul li { margin-left:0; padding-left:0;} #svgcanvas .bullets { margin-top:10px;}</style>
+                    <section> 
+
+                        <table id='svgcanvas'>
+                            <tr><th><h2>SVG (Vector)</h2></th><th><h2>Canvas (Raster)</h2></th></tr>
+                            <tr>
+                                <td>
+                                    <ul class='bullets'>
+                                        <li>Scalable or interactive</li>
+                                        <li>Mouse events</li>
+                                        <li><a href='http://svg-edit.googlecode.com/svn/branches/2.5.1/editor/svg-editor.html'>SVG Edit</a></li>
+                                    </ul>
+
+                                </td>
+                                <td>
+                                    <ul class='bullets'>
+                                        <li>Pixel based drawing</li>
+                                        <li>Color picker</li>
+                                        <li>Performance</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <hr />
+                        A fully featured drawing application might need to make use of both: <a href='http://www.svgopen.org/2010/papers/62-From_SVG_to_Canvas_and_Back/index.html' target="_blank">SVG To Canvas and Back</a>
+                    </section> 
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>Canvas - Video</h1></header> 
+                    <section> 
+                        <ul class='bullets'>
+                            <li><a href='https://developer.mozilla.org/En/Manipulating_video_using_canvas' target="_blank">Mozilla - Manipulating Video Using Canvas</a></li>
+                            <li><a href='http://www.craftymind.com/factory/html5video/CanvasVideo.html' target="_blank">Exploding Video</a></li>
+                        </ul>
+                        <div class='two-column center'>
+                            <div><img src='http://briangrinstead.com/canvasslides/resources/video.png' width='300' /></div>
+                            <div><img src='http://briangrinstead.com/canvasslides/resources/video-explode.png' width='300' /></div>
+                        </div>
+                    </section> 
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>Canvas - Resources</h1></header> 
+                    <section> 
+                        <ul class='bullets'>
+                            <li>
+                                <a href='http://diveintohtml5.org/canvas.html' target="_blank">Dive Into HTML5 Canvas Tutorial</a>
+                            </li>
+                            <li>
+                                <a href='http://www.whatwg.org/specs/web-apps/current-work/multipage/the-canvas-element.html#the-canvas-element' target="_blank">WHATWG Spec</a>
+                            </li>
+                            <li>
+                                <a href='https://developer.mozilla.org/en/canvas_tutorial' target="_blank">Mozilla Canvas Tutorial</a>
+                            </li>
+                            <li>
+                                <a href='http://billmill.org/static/canvastutorial/' target="_blank">Canvas Breakout Game Tutorial</a>
+                            </li>
+                        </ul>
+                    </section> 
+                </div> 
+
+
+                <div class="slide"> 
+                    <header><h1>Canvas - More Demos</h1></header> 
+                    <section>      
+                        <ul class='bullets'>
+                            <li><a href="http://www.ernestdelgado.com/public-tests/canvasphoto/demo/canvas.html" target="_blank">Photo Table</a></li>
+                            <li><a href="http://www.nihilogic.dk/labs/" target="_blank">Nihilogic Labs</a></li>
+                            <li><a href="http://www.pixastic.com/lib/" target="_blank">Pixastic Image Manipulation</a></li>
+                            <li><a href="http://azarask.in/projects/algorithm-ink/#d3c3be13" target="_blank">Algorithm Ink</a></li>
+                            <li><a href="http://pipes.yahoo.com/pipes/pipe.edit" target="_blank">Yahoo! Pipes</a></li>
+                        </ul>
+                    </section> 
+                </div> 
+
+
+                <div class="slide"> 
+                    <header><h1>FileReader</h1></header> 
+                    <section> 
+                        <p>Provides methods to read files into memory, and access the data using progress events.</p>
+                        <p><a href='http://www.w3.org/TR/FileAPI/#FileReader-interface'>http://www.w3.org/TR/FileAPI/#FileReader-interface</a></p>
+                        <table class="standard-table"> 
+                            <tbody> 
+                                <tr> 
+                                    <td>
+                                        <code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#abort()">abort</a>();</code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsArrayBuffer()">readAsArrayBuffer</a>(in Blob blob);</code> 
+                                        <span class="unimplementedInlineTemplate" style="border: 1px solid rgb(255, 205, 154); background-color: rgb(255, 153, 204); font-size: x-small; white-space: nowrap; padding: 2px;">Unimplemented</span>
+                                    </td> 
+                                </tr> 
+                                <tr> 
+                                    <td>
+                                        <code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsBinaryString()">readAsBinaryString</a>(</code><code>in Blob blob</code><code>);<br> </code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsDataURL()">readAsDataURL</a>(</code><code>in Blob blob</code><code>);<br> </code></td> </tr> <tr> <td><code>void <a rel="internal" href="https://developer.mozilla.org/en/DOM/FileReader#readAsText()">readAsText</a>(</code><code>in Blob blob</code><code>, [optional] in DOMString encoding</code><code>);<br> </code>
+                                    </td> 
+                                </tr> 
+                            </tbody>
+                        </table>
+                    </section> 
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>FileReader - Compatibility</h1></header> 
+                    <section> 
+                        <img src='canvas-compatibility.png' />
+                        <hr />
+                        <a href='http://caniuse.com/#feat=fileapi' target='_blank'>http://caniuse.com/#feat=fileapi</a> as of 12/15/2010
+                    </section> 
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>FileReader - Usage</h1></header> 
+                    <section> 
+                        <ul class='bullets'>
+                            <li><a href='filereader1.html' target='_blank'>Basic Usage</a></li>
+                            <li><a href='filereader2.html' target='_blank'>Drag and Drop</a></li>
+                            <li><a href='filereader3.html' target='_blank'>filereader.js</a></li>
+                        </ul>
+                    </section> 
+                </div> 
+
+
+
+                <div class="slide"> 
+                    <header><h1>FileReader - Resources</h1></header> 
+
+                    <section> 
+                        <ul class='bullets'>
+                            <li><a href='http://www.w3.org/TR/FileAPI/#FileReader-interface' target="_blank">FileAPI FileReader Interface</a> (W3C)</li>
+                            <li>
+                                <a href='https://github.com/bgrins/filereader.js' target="_blank">https://github.com/bgrins/filereader.js</a>
+                            </li>
+                            <li>
+                                <a href='https://developer.mozilla.org/en/DOM/FileReader' target="_blank">Mozilla FileReader docs</a>
+                            </li>
+                        </ul>
+                    </section> 
+
+                </div> 
+
+                <div class="slide"> 
+                    <header><h1>FileReader + Canvas</h1></header> 
+
+                    <section> 
+                        <p>Combine both technologies to allow direct image access + manipulation</p>
+                        <ul class='bullets'>
+                            <li><a href='filereadercanvas.html' target='_blank'>Putting it together</a> for local image reading + manipulation.</li>
+                    </section> 
+
+                </div> 
+
+
+                <div class="slide"> 
+                    <header><h1>Instant Sprite</h1></header> 
+
+                    <section> 
+                        <p>CSS Sprite Generator using Canvas/FileReader <span class='sumary'>(entirely in browser)</span></p>
+                        <ul class='bullets'>
+                            <li><a href='http://instantsprite.com' target='_blank'>http://instantsprite.com</a></li>
+                            <li><a href='https://github.com/bgrins/InstantSprite' target='_blank'>https://github.com/bgrins/InstantSprite</a></li>
+                        </ul>
+                    </section> 
+
+                </div> 
+
+
+
+
+
+            </div> <!-- slides --> 
+
+        </div> <!-- presentation --> 
+
+        <script src="prettify.js" onload="prettyPrint();"></script> 
+        <script src='slides.js' type='text/javascript'></script> 
+        <!--[if lt IE 9]>
+        <script 
+          src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">
+        </script>
+        <script>CFInstall.check({ mode: "overlay" });</script>
+        <![endif]--> 
+    </body> 
 </html>
