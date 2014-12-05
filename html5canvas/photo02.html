@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a>
+
+        <h2>You can draw <em>on</em> images</h2>
+
+        <div class='viewsource'>
+            <canvas id='photo'></canvas>
+        </div>
+
+        <script type='text/javascript' class='viewsource lib'>
+            function loadImage(canvas, src) {
+
+                var context = canvas.getContext("2d"),
+                        img = new Image();
+
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    context.drawImage(img, 0, 0);
+                };
+
+                img.src = src;
+            }
+        </script>
+
+        <script type='text/javascript' class='viewsource'>
+            var photo = document.getElementById("photo"),
+                    photoContext = photo.getContext("2d"),
+                    photoOffset = $(photo).offset(),
+                    photoDrawing = false;
+
+            loadImage(photo, 'http://www.desktopaper.com/wp-content/uploads/popular-landscapes-cityscapes-architecture-london-town.jpg');
+
+            $(photo).bind("mousedown", function (e) {
+
+                /*
+                 moveTo(x, y);
+                 */
+                photoContext.moveTo(e.pageX - photoOffset.left, e.pageY - photoOffset.top)
+                photoDrawing = true;
+
+            }).bind("mouseup mouseout", function () {
+
+                photoDrawing = false;
+
+            }).bind("mousemove", function (e) {
+                if (photoDrawing) {
+
+                    /*
+                     lineTo(x, y);
+                     */
+                    photoContext.lineTo(e.layerX - photoOffset.left, e.layerY - photoOffset.top);
+                    photoContext.stroke();
+                }
+
+            });
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a><br />
+
+        <p>Adopted from <a href='https://developer.mozilla.org/en/Using_files_from_web_applications'>https://developer.mozilla.org/en/Using_files_from_web_applications</a>
+        </p>
+
+        <div class='viewsource'>
+            <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)">
+            <div id="fileList">
+                <p>Select some images!</p>
+            </div>
+        </div>
+
+        <script type='text/javascript' class='viewsource'>
+            var fileElem = document.getElementById("fileElem"),
+                    fileList = document.getElementById("fileList");
+
+
+            function handleFiles(files) {
+                if (!files.length) {
+                    fileList.innerHTML = "<p>Select some images!</p>";
+                }
+                else {
+                    var list = document.createElement("ul");
+                    for (var i = 0; i < files.length; i++) {
+
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+
+                            var li = document.createElement("li");
+                            list.appendChild(li);
+
+                            var img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.height = 60;
+
+                            li.appendChild(img);
+
+                            var dataurl = document.createElement('textarea');
+                            dataurl.value = e.target.result;
+                            li.appendChild(dataurl);
+                        };
+                        reader.readAsDataURL(files[i]);
+
+                    }
+                    fileList.appendChild(list);
+                }
+            }
+        </script>
+
+    </body>
+</html>

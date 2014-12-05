@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a>
+
+        <h2>You can draw images</h2>
+
+        <a href='http://www.desktopaper.com/wp-content/uploads/popular-landscapes-cityscapes-architecture-london-town.jpg'>Original image</a>
+
+        <div class='viewsource'>
+            <canvas id='photo'></canvas>
+            <canvas id='crazyPhoto'></canvas>
+        </div>
+
+
+        <script type='text/javascript' class='viewsource lib'>
+            function loadImage(canvas, src) {
+
+                var context = canvas.getContext("2d"),
+                        img = new Image();
+
+                img.onload = function () {
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    /*
+                     drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)	
+                     */
+                    context.drawImage(img, 0, 0);
+                }
+
+                img.src = src;
+            }
+        </script>
+        <script type='text/javascript' class='viewsource lib'>
+            //context.drawImage(img, 0, 0, img.width, img.height, img.width/4, img.height/4, img.width/2, img.height/2);
+            // Equivalent to: context.drawImage(img, 0, 0, img.width, img.height);	
+
+            var BUSCEMI_FACES = 15;
+            function crazyLoadImage(canvas, src) {
+
+                var context = canvas.getContext("2d"),
+                        img = new Image();
+
+                img.onload = function () {
+                    setInterval(function () {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+
+                        for (var i = 0; i < BUSCEMI_FACES; i++) {
+
+                            var destSize = Math.floor(Math.random() * 80) + 20;
+                            var destX = Math.floor(Math.random() * img.width);
+                            var destY = Math.floor(Math.random() * img.height);
+
+                            context.drawImage(img, 200, 150, 100, 100, destX, destY, destSize, destSize);
+                        }
+                    }, 500)
+                }
+
+                img.src = src;
+            }
+        </script>
+
+        <script type='text/javascript' class='viewsource'>
+            loadImage(document.getElementById("photo"), 'http://www.desktopaper.com/wp-content/uploads/popular-landscapes-cityscapes-architecture-london-town.jpg');
+            crazyLoadImage(document.getElementById("crazyPhoto"), 'http://www.desktopaper.com/wp-content/uploads/popular-landscapes-cityscapes-architecture-london-town.jpg');
+        </script>
+    </body>
+</html>

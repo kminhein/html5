@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a>
+
+        <h2>You can <em>detect faces</em> in photos</h2>
+
+        <p>
+            All Credit: <a href='https://github.com/liuliu/ccv/tree/current/js'>https://github.com/liuliu/ccv/tree/current/js</a>
+        </p>
+        <div id='photos'>
+        </div>
+
+
+        <script type='text/javascript' src='ccv.js'></script>
+        <script type='text/javascript' src='face.js'></script>
+
+        <script type='text/javascript' class='viewsource'>
+            function detectFaces(src) {
+
+                var canvas = document.createElement("canvas");
+                var ctx = canvas.getContext("2d");
+                var image = new Image();
+
+                image.onload = function () {
+                    var elapsed_time = (new Date()).getTime();
+                    var comp = ccv.detect_objects({"canvas": ccv.grayscale(ccv.pre(image)),
+                        "cascade": cascade,
+                        "interval": 5,
+                        "min_neighbors": 1});
+                    canvas.width = image.width;
+                    canvas.height = image.height;
+
+                    ctx.drawImage(image, 0, 0);
+                    ctx.lineWidth = 3;
+                    ctx.strokeStyle = "#f00";
+                    for (var i = 0; i < comp.length; i++)
+                        ctx.strokeRect(comp[i].x, comp[i].y, comp[i].width, comp[i].height);
+
+                    $("#photos").append(canvas);
+                }
+
+                image.src = src;
+
+            }
+
+            detectFaces('buscemi.jpg');
+            detectFaces('jackson.png');
+        </script>
+
+
+
+        <h2>You can <em>detect nudity</em> in photos</h2>
+        <p><a href='http://www.patrick-wied.at/static/nudejs/'>http://www.patrick-wied.at/static/nudejs/</a></p>
+
+
+    </body>
+</html>

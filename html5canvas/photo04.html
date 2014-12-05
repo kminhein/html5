@@ -1,0 +1,103 @@
+
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a>
+
+        <h2>You can <em>apply filters</em> to photos</h2>
+
+        <script type='text/javascript' src='pixastic.js'></script>
+
+        <p>
+            Image processing by <a href='http://www.pixastic.com/lib'>pixastic</a>.  <a href='http://www.flickr.com/photos/christianrevivalnetwork/2724927506/sizes/z/in/photostream/'>Photo Source</a>
+        </p>
+
+        <div class='viewsource'>
+            <img src="canyon.jpg" onmouseover="desaturate(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function desaturate(img) {
+                var img2 = Pixastic.process(img, "desaturate");
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+        <div>
+            <img src="canyon.jpg" onmouseover="flipv(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function flipv(img) {
+                var img2 = Pixastic.process(img, "flipv");
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+
+        <div>
+            <img src="canyon.jpg" onmouseover="doblur(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function doblur(img) {
+                var img2 = Pixastic.process(img, "blur");
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+        <div>
+            <img src="canyon.jpg" onmouseover="glow(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function glow(img) {
+                var img2 = Pixastic.process(img, "glow", {amount: 0.8, radius: 1.0});
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+
+        <div>
+            <img src="canyon.jpg" onmouseover="laplace(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function laplace(img) {
+                var img2 = Pixastic.process(img, "laplace", {edgeStrength: 0.5, invert: false, greyLevel: 0});
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+
+        <div>
+            <img src="canyon.jpg" onmouseover="invert(this);"/>
+        </div>
+        <script type='text/javascript' class='viewsource'>
+            function invert(img) {
+                var img2 = Pixastic.process(img, "invert", {edgeStrength: 0.5, invert: false, greyLevel: 0});
+                img2.onmouseout = function () {
+                    Pixastic.revert(this);
+                }
+            }
+        </script>
+
+
+    </body>
+</html>

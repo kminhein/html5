@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+    <head>
+        <script type='text/javascript' src='demo.js'></script>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+
+            #dropbox { border: 5px solid #333; height: 100px; background-color:#efe; text-align:center; padding-top:40px; font-size:20px; }
+            body.active #dropbox { border-color: #3f3; background-color:#9f9; }
+            #loadedFileList { float:left; width: 120px; margin:0; padding:0; }
+            #loadedFileList li { border: 2px solid #333;; list-style-type:none; padding:2px; margin:2px;}
+            #loadedFileList li:hover, #loadedFileList li.active { border-color: #3f3; }
+            #editor-container { margin-left: 150px; }
+            #loadData { border:1px solid #ccc; clear:both; }
+            #toolbar { display: none; }
+        </style>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a> | <a href='filereadercanvas.js'>Source (filereadercanvas.js)</a>
+
+        <h2>FileReader+Canvas</h2>
+
+
+        <form>
+
+            <div id='dropbox'>Drag and drop images from your desktop anywhere on the page<br /> or select <input type="file" id="fileElem" multiple /></div>
+        </form>
+        <ul id='loadedFileList'></ul>
+        <div id='editor-container'>
+            <div id='toolbar'>
+                <a href='#' id='command-restore'>restore</a> | 
+                <a href='#' id='command-blurfast' data-args='{ "amount": 0.9 }'>blur</a> | 
+                <a href='#' id='command-laplace' data-args='{ "edgeStrength":0.9,"invert":false,"greyLevel":0.4}'>laplace</a> | 
+                <a href='#' id='command-flipv'>flip vertical</a> |
+                <a href='#' id='command-fliph'>flip horizontal</a> |
+                <a href='#' id='command-noise' data-args='{ "mono":true, "amount" :0.8, "strength":0.8}'>noise</a> |
+                <a href='#' id='command-invert'>invert</a> |
+                <a href='#' id='command-sepia'>sepia</a> |
+                <a href='#' id='command-glow' data-args='{"amount":0.5,"radius":1.0}'>glow</a> |
+                <a href='#' id='command-emboss' data-args='{"greyLevel":100,"direction":"topright"}'>emboss</a>
+
+            </div>
+            <div id='editor'></div>
+        </div>
+
+
+        <div id="loadData">
+        </div>
+
+
+
+        <script type='text/javascript' src='resources/filereader.js'></script>
+        <script type='text/javascript' src='resources/filereadercanvas.js'></script>
+        <script type='text/javascript' src='resources/pixastic.js'></script>
+    </body>
+</html>

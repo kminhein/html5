@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            em { color: #d33; font-size:1.2em; }
+            pre.css, pre.html, pre.js { text-align:left; border: solid 1px #ddd; margin:3px; margin-top:9px; padding: 4px; word-wrap:break-word; }
+            pre.css:before, pre.html:before, pre.js:before { display:block; font-weight:bold;margin-bottom: 1em; }
+            pre.css:before { content: 'style type="text/css"'; } 
+            pre.html:before { content: 'html';  } 
+            pre.js:before { content: 'script type="text/javascript"'; }
+        </style>
+        <script type='text/javascript' src='demo.js'></script>
+    </head>
+    <body>
+        <a href='index.html'>Presentation</a>
+
+        <h2>Drag / Drop Craziness</h2>
+
+        <div id='dropzone'>Drop some files here!</div>
+
+        <style class='viewsource'>
+            #dropzone { border: 5px solid #333; }
+            #dropzone.active { border-color: #3f3; }
+        </style>
+
+        <script type='text/javascript' class='viewsource'>
+            var dropbox = document.getElementById("dropzone");
+            var dragClass = "active";
+
+            dropbox.addEventListener("dragenter", dragenter, false);
+            dropbox.addEventListener("dragleave", dragleave, false);
+            dropbox.addEventListener("dragover", dragover, false);
+            dropbox.addEventListener("drop", drop, false);
+
+            function drop(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(dropbox).removeClass(dragClass);
+
+                log(e, e.dataTransfer.files);
+                alert("dropped");
+            }
+            function dragenter(e) {
+                $(dropbox).addClass(dragClass);
+
+                // Need to stop the enter event
+                e.stopPropagation();
+                e.preventDefault();
+            }
+            function dragleave(e) {
+                $(dropbox).removeClass(dragClass);
+            }
+            function dragover(e) {
+                $(dropbox).addClass(dragClass);
+
+                // Need to stop the over event
+                e.stopPropagation();
+                e.preventDefault();
+            }
+
+        </script>
+    </body>
+</html>
