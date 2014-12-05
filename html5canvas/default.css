@@ -24,7 +24,12 @@ body {
     top: 0px;
     display: block;
     overflow: hidden;
-    background: #778;
+    
+    background: url('http://kminhein.bitbucket.org/city-london-night.jpg') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .slides {
