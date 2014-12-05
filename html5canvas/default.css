@@ -1,3 +1,11 @@
+html { 
+  background: url('http://kminhein.bitbucket.org/city-london-night.jpg') no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 body {
     font: 16px "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
     padding: 0;
