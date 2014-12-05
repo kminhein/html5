@@ -25,11 +25,11 @@ body {
     display: block;
     overflow: hidden;
     
-    background: url('http://kminhein.bitbucket.org/city-london-night.jpg') no-repeat center center fixed; 
+    background: url('http://kminhein.bitbucket.org/city-london-night.jpg') no-repeat center center fixed transparent; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
-    background-size: cover;
+    background-size: cover; 
 }
 
 .slides {
@@ -55,6 +55,7 @@ body {
     top: 50%;
     margin-top: -350px;
     background-color: #f4f4f4;
+    opacity: 0.8;
 /*    background: -webkit-gradient(linear, left bottom, left top, from(#bbd), to(#fff));
     background: -moz-linear-gradient(bottom, #bbd, #fff);
     background: linear-gradient(bottom, #bbd, #fff);*/
